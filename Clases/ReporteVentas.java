@@ -1,11 +1,10 @@
-import 
+import java.util.Date; 
 public class ReporteVentas {
 
     // Atributos privados
     private int idReporte;
-    private double monto;
-    private String metodo;
-    private String estado;
+    private Date fechaGeneracion;
+    private double ventasTotales;
 
     // Constructor
     public Pago(int idPago, double monto, String metodo, String estado) {
@@ -16,60 +15,42 @@ public class ReporteVentas {
     }
 
     // Getters y Setters
-    public int getIdPago() {
-        return idPago;
+    public int getIdReporte() {
+        return idReporte;
     }
 
-    public void setIdPago(int idPago) {
-        this.idPago = idPago;
+    public void setIdReporte(int idReporte) {
+        this.idReporte = idReporte;
     }
 
-    public double getMonto() {
-        return monto;
+    public Date getfechaGeneracion() {
+        return fechaGeneracion;
     }
 
-    public void setMonto(double monto) {
-        this.monto = monto;
+    public void setfechaGeneracion(Date date) {
+        this.fechaGeneracion = date;
     }
 
-    public String getMetodo() {
-        return metodo;
+    public double getventasTotales() {
+        return ventasTotales;
     }
 
-    public void setMetodo(String metodo) {
-        this.metodo = metodo;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setventasTotales(double ventasTotales) {
+        this.ventasTotales = ventasTotales;
     }
 
     // Métodos del diagrama
-    public void procesarPago() {
-        if (estado.equalsIgnoreCase("pendiente")) {
-            estado = "procesado";
-            System.out.println("Pago procesado exitosamente.");
-        } else {
-            System.out.println("El pago ya fue procesado o está en un estado no válido.");
-        }
+    public void generarReporte() {
+       // logica generar reporte
     }
 
-    public void confirmarPago() {
-        if (estado.equalsIgnoreCase("procesado")) {
-            estado = "confirmado";
-            System.out.println("Pago confirmado exitosamente.");
-        } else {
-            System.out.println("El pago no se puede confirmar. Verifica su estado.");
-        }
+    public void exportarDoc() {
+        //logica exportar documento
     }
 
-    // Método toString para mostrar la información del pago
-    @Override
-    public String toString() {
-        return "Pago [idPago=" + idPago + ", monto=" + monto + ", metodo=" + metodo + ", estado=" + estado + "]";
+    public void visualizarHistorial() {
+        //logica visualizar historial
     }
+
+    
 }
