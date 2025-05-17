@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio | Sistema de Ventas</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+    <header>
+        <h1 th:text="${mensaje}">¡Bienvenido a nuestra tienda!</h1>
+
+        <div>
+            <form th:action="@{/buscar}" method="get">
+                <input type="text" name="query" placeholder="Buscar productos...">
+                <button type="submit">Buscar</button>
+            </form>
+
+            <a th:href="@{/login}"><button>Iniciar sesión</button></a>
+            <a th:href="@{/registro}"><button>Registrarse</button></a>
+        </div>
+    </header>
+
+    <main>
+        <h2>Productos disponibles</h2>
+        <div class="productos">
+            <div class="producto" th:each="producto : ${productos}">
+                <h3 th:text="${producto.nombre}">Nombre del producto</h3>
+                <p th:text="'Precio: $' + ${producto.precio}">Precio</p>
+                <p th:text="${producto.descripcion}">Descripción</p>
+                <!-- Agrega más detalles si los tienes -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Sistema de Ventas. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

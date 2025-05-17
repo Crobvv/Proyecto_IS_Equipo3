@@ -22,7 +22,7 @@ public class ProductoService {
         return productoRepository.findAll();
     }
 
-    public Producto obtenerPorId(Long id) {
+    public Producto obtenerPorId(int id) {
         return productoRepository.findById(id).orElse(null);
     }
 
@@ -34,7 +34,7 @@ public class ProductoService {
         return productoRepository.findByNombreContainingIgnoreCase(nombre);
     }
 
-    public void eliminarProducto(Long id) {
+    public void eliminarProducto(int id) {
         productoRepository.deleteById(id);
     }
 }
