@@ -32,7 +32,7 @@ public class Cliente extends Usuario {
         // Constructor vacío requerido por JPA
     }
 
-    public void Cliente(int idUsuario, String nombre, String correo, String password) {
+    public Cliente(int idUsuario, String nombre, String correo, String password) {
         this.setIdUsuario(idUsuario);
         this.setNombre(nombre);
         this.setCorreo(correo);
@@ -40,7 +40,7 @@ public class Cliente extends Usuario {
     }
 
     public Cliente(int idUsuario, String nombre, String correo, String password, String RFC, String codigoPostal) {
-        Cliente(idUsuario, nombre, correo, password);
+        this(idUsuario, nombre, correo, password);
         this.RFC = RFC;
         this.codigoPostal = codigoPostal;
     }

@@ -28,7 +28,7 @@ public class ReporteVentasController {
     }
 
     @GetMapping("/{id}")
-    public Optional<ReporteVentas> obtenerPorId(@PathVariable Long id) {
+    public Optional<ReporteVentas> obtenerPorId(@PathVariable int id) {
         return reporteVentasService.obtenerPorId(id);
     }
 
@@ -38,7 +38,7 @@ public class ReporteVentasController {
     }
 
     @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Long id) {
+    public void eliminar(@PathVariable int id) {
         reporteVentasService.eliminar(id);
     }
 }

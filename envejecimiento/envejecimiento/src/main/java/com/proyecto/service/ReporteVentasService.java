@@ -18,7 +18,7 @@ public class ReporteVentasService {
         return reporteVentasRepository.findAll();
     }
 
-    public Optional<ReporteVentas> obtenerPorId(Long id) {
+    public Optional<ReporteVentas> obtenerPorId(int id) {
         return reporteVentasRepository.findById(id);
     }
 
@@ -26,7 +26,7 @@ public class ReporteVentasService {
         return reporteVentasRepository.save(reporte);
     }
 
-    public void eliminar(Long id) {
+    public void eliminar(int id) {
         reporteVentasRepository.deleteById(id);
     }
 }

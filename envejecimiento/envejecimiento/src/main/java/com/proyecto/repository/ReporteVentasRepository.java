@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.proyecto.model.ReporteVentas;
 
 @Repository
-public interface ReporteVentasRepository extends JpaRepository<ReporteVentas, Long> {
+public interface ReporteVentasRepository extends JpaRepository<ReporteVentas, Integer> {
     // posibles métodos personalizados si los necesitas
 }
