@@ -1,7 +1,5 @@
 package com.proyecto.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.model.Producto;
 import com.proyecto.service.ProductoService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/productos")
