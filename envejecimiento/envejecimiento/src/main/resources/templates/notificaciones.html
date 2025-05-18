@@ -1,0 +1,71 @@
+<!-- Pantalla de notificaciones y alertas -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notificaciones y Alertas - Envejecimiento Exitoso</title>
+  <style>
+    body {
+      background-color: #fffacd;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #0047ab;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: x-large;
+    }
+    .container {
+      padding: 30px;
+    }
+    h2 {
+      color: #0047ab;
+      font-size: large;
+    }
+    .alerta, .notificacion {
+      border: 1px solid #ccc;
+      border-left: 6px solid #0047ab;
+      padding: 15px;
+      margin-top: 15px;
+      background-color: white;
+      font-size: small;
+    }
+    .alerta {
+      border-left-color: red;
+      background-color: #ffe5e5;
+    }
+    .notificacion {
+      border-left-color: #0047ab;
+      background-color: #e5f0ff;
+    }
+  </style>
+</head>
+<body>
+  <header>Notificaciones y Alertas</header>
+  <div class="container">
+    <h2>Alertas del Sistema</h2>
+
+    <div class="alerta">
+      <strong>Error de envío:</strong> Pedido #00458 no se pudo entregar. Contacte al cliente para reprogramar.
+    </div>
+
+    <div class="alerta">
+      <strong>Stock bajo:</strong> El producto "Juguete educativo Navidad" está por agotarse.
+    </div>
+
+    <h2>Notificaciones Recientes</h2>
+
+    <div class="notificacion">
+      <strong>Nuevo registro de cliente:</strong> Usuario "mlopez90" completó su registro.
+    </div>
+
+    <div class="notificacion">
+      <strong>Pago confirmado:</strong> Pedido #00457 ha sido pagado con tarjeta online.
+    </div>
+  </div>
+</body>
+</html>

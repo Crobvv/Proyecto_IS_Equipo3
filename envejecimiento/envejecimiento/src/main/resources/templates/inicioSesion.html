@@ -1,0 +1,85 @@
+<!-- Pantalla de inicio de sesión: http://www.Envejecimiento-exitoso-Inicio-de-sesion.com -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio de Sesión - Envejecimiento Exitoso</title>
+  <style>
+    body {
+      background-color: #FFFFFF;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-container {
+      background-color: #0047ab;
+      padding: 40px;
+      border-radius: 10px;
+      color: white;
+      width: 350px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    h2 {
+      text-align: center;
+      font-size: x-large;
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-size: small;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: none;
+      font-size: small;
+    }
+    .btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #ffd700;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      font-size: small;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .registrate {
+      margin-top: 20px;
+      text-align: center;
+      font-size: small;
+    }
+    .registrate a {
+      color: #ffd700;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Iniciar Sesión</h2>
+    <form action="index.html">
+      <label for="usuario">Nombre de usuario</label>
+      <input type="text" id="usuario" name="usuario" required>
+
+      <label for="contrasena">Contraseña</label>
+      <input type="password" id="contrasena" name="contrasena" required>
+
+      <button type="submit" class="btn">Iniciar Sesión</button>
+    </form>
+    <div class="registrate">
+      ¿Eres nuevo? <a href="registroUsuario.html">Regístrate</a>
+    </div>
+  </div>
+</body>
+</html>
