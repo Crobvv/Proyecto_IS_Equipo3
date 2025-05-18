@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Administrador</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow">
+                <div class="card-body">
+                    <!-- Mostrar mensaje de error si existe -->
+                    <div th:if="${error}" class="alert alert-danger text-center" role="alert">
+                        <p th:text="${error}"></p>
+                    </div>
+
+                    <h3 class="card-title text-center mb-4">Login Administrador</h3>
+                    <form th:action="@{/admin/login/admin}" method="post">
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo electrónico</label>
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                name="email"
+                                placeholder="admin@tudominio.com"
+                                required>
+                        </div>
+                        <!-- Contraseña -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="password"
+                                name="password"
+                                placeholder="••••••••"
+                                required>
+                        </div>
+                        <!-- Clave de acceso -->
+                        <div class="mb-3">
+                            <label for="accessKey" class="form-label">Clave de acceso (6 dígitos)</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="accessKey"
+                                name="accessKey"
+                                placeholder="123456"
+                                pattern="\d{6}"
+                                title="Debe contener exactamente 6 dígitos"
+                                required>
+                        </div>
+                        <!-- Botones -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                            <a th:href="@{/login}" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                    <hr>
+                    <p class="text-center">
+                        ¿No eres administrador? 
+                        <a th:href="@{/cliente/login}">Login Cliente</a>
+                    </p>
+                    <p class="text-center">
+                        ¿No tienes cuenta? 
+                        <a th:href="@{/admin/registroAdmin}">Registrar Administrador</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
