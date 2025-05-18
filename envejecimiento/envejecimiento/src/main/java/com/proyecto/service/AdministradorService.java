@@ -19,7 +19,19 @@ public class AdministradorService {
     private PasswordEncoder passwordEncoder;
 
     public Administrador registrarAdministrador(Administrador admin) {
+        int maxId = administradorRepository.findMaxIdUsuario(); // Consultamos el idUsuario más alto entre admins
+
+        int nextId; // Calculamos el siguiente según la progresión de 10 en 10
+        if(maxId < 1000) {
+            nextId = 1000;
+        } else {
+            nextId = maxId + 10;
+        }
+
+        admin.setIdUsuario(nextId); // Asigna al objeto antes de guardar
+
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+        
         return administradorRepository.save(admin);
     }
 

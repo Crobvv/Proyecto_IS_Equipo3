@@ -20,13 +20,18 @@ public class AdministradorController {
     @Autowired
     private AdministradorService administradorService;
 
-    @GetMapping("/registro")
+    @GetMapping("/login/admin")
+    public String mostrarLoginAdministrador() {
+        return "login/admin";
+    }
+
+    @GetMapping("/registro/admin")
     public String mostrarFormularioRegistro(Model model) {
         model.addAttribute("administrador", new Administrador());
         return "registro/admin";
     }
 
-    @PostMapping("/registro")
+    @PostMapping("/registro/admin")
     public String registrarAdministrador(@ModelAttribute Administrador administrador) {
         administradorService.registrarAdministrador(administrador);
         return "redirect:/login?admin";

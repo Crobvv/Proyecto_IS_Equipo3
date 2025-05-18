@@ -39,8 +39,8 @@ public class Cliente extends Usuario {
         this.setPassword(password);
     }
 
-    public Cliente(int idUsuario, String nombre, String correo, String password, String RFC, String codigoPostal) {
-        this(idUsuario, nombre, correo, password);
+    public Cliente(String nombre, String correo, String password, String RFC, String codigoPostal) {
+        super(nombre, password, correo);
         this.RFC = RFC;
         this.codigoPostal = codigoPostal;
     }
