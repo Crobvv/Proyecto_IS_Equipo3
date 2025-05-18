@@ -1,6 +1,5 @@
 package com.proyecto.controller;
 
-import com.proyecto.model.Pago;
 import com.proyecto.model.Pedido;
 import com.proyecto.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +14,6 @@ public class PedidoController {
 
     @Autowired
     private PedidoService pedidoService;
-
-    // Registrar un nuevo pedido
-    @PostMapping
-    public ResponseEntity<Pedido> registrar(@RequestBody Pedido pedido, Pago pago) {
-        return ResponseEntity.ok(pedidoService.registrarPedido(pedido, pago));
-    }
 
     // Listar todos los pedidos
     @GetMapping

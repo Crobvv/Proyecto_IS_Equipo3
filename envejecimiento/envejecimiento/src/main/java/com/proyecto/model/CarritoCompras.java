@@ -3,16 +3,9 @@ package com.proyecto.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.ManyToMany;
-
-
-@Embeddable
 public class CarritoCompras {
 
-    @ManyToMany
     private List<Producto> productos = new ArrayList<>();
-
     private double total;
 
     // Constructor
@@ -21,7 +14,7 @@ public class CarritoCompras {
         this.total = 0.0;
     }
 
-    // Métodos del diagrama
+    // Métodos del diagrama detallado de clases
    public void agregarProducto(Producto p) {
         productos.add(p);
         calcularTotal();
@@ -41,13 +34,19 @@ public class CarritoCompras {
         total = 0.0;
     }
 
-    // Getters
+    // Getters y setter
     public List<Producto> getProductos() {
         return productos;
+    }
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
     }
 
     public double getTotal() {
         return total;
+    }
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     @Override
