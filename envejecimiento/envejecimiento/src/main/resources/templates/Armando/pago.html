@@ -1,0 +1,134 @@
+<!-- Pantalla de pago -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pago - Envejecimiento Exitoso</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fffacd;
+    }
+    header {
+      background-color: #0047ab;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav {
+      display: flex;
+      gap: 20px;
+      font-size: small;
+    }
+    .pago-container {
+      padding: 40px;
+      max-width: 600px;
+      margin: auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    h2 {
+      text-align: center;
+      font-size: x-large;
+      color: #0047ab;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-size: small;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: small;
+    }
+    .metodo-pago {
+      margin-top: 20px;
+    }
+    .checkbox {
+      margin-top: 20px;
+      font-size: small;
+    }
+    .btn-completar {
+      margin-top: 30px;
+      width: 100%;
+      background-color: #ffd700;
+      color: black;
+      padding: 10px;
+      border: none;
+      font-size: small;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    function mostrarCampos() {
+      var metodo = document.getElementById('metodo').value;
+      document.getElementById('datos-tarjeta').style.display = metodo === 'tarjeta' ? 'block' : 'none';
+      document.getElementById('codigo-efectivo').style.display = metodo === 'efectivo' ? 'block' : 'none';
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <div><strong>Envejecimiento Exitoso</strong></div>
+    <nav>
+      <a href="http://Envejecimiento-exitoso.com" style="color:white; text-decoration:none;">Inicio</a>
+      <a href="#" style="color:white; text-decoration:none;">Categorías</a>
+      <a href="#" style="color:white; text-decoration:none;">Buscar</a>
+      <a href="#" style="color:white; text-decoration:none;">Carrito</a>
+    </nav>
+  </header>
+
+  <div class="pago-container">
+    <h2>Datos de Pago</h2>
+    <form action="confirmacionPedido.html">
+      <label for="direccion">Dirección de envío</label>
+      <input type="text" id="direccion" name="direccion" required>
+
+      <div class="metodo-pago">
+        <label for="metodo">Método de pago</label>
+        <select id="metodo" name="metodo" onchange="mostrarCampos()" required>
+          <option value="">Seleccione una opción</option>
+          <option value="tarjeta">Tarjeta (pago online)</option>
+          <option value="efectivo">Efectivo (pago en tienda)</option>
+        </select>
+      </div>
+
+      <div id="datos-tarjeta" style="display:none">
+        <label for="nombre-tarjeta">Nombre en la tarjeta</label>
+        <input type="text" id="nombre-tarjeta" name="nombre-tarjeta">
+
+        <label for="numero-tarjeta">Número de tarjeta</label>
+        <input type="text" id="numero-tarjeta" name="numero-tarjeta">
+
+        <label for="expiracion">Fecha de expiración</label>
+        <input type="text" id="expiracion" name="expiracion" placeholder="MM/AA">
+
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" name="cvv">
+      </div>
+
+      <div id="codigo-efectivo" style="display:none">
+        <p style="margin-top:20px; font-size:small;">Código de pago: <strong>EF123456789</strong></p>
+      </div>
+
+      <div class="checkbox">
+        <input type="checkbox" id="recordar" name="recordar">
+        <label for="recordar">Recuérdame para próximas compras</label>
+      </div>
+
+      <button type="submit" class="btn-completar">Completar Orden</button>
+    </form>
+  </div>
+</body>
+</html>

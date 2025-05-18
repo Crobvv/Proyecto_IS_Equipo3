@@ -1,0 +1,161 @@
+<!-- Página principal: http://Envejecimiento-exitoso.com -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Envejecimiento Exitoso - Inicio</title>
+  <style>
+    body {
+      font-family: Verdana, Arial;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .barra {
+      background-color: #0047ab;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+    .barra a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: white;
+      font-size: small;
+    }
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 40px;
+    }
+    .producto {
+      background-color: #fffacd;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      font-size: medium;
+    }
+    .producto img {
+      width: 100%;
+      height: 300px;
+      background-color: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: small;
+    }
+    .producto p {
+      font-size: medium;
+      margin-top: 15px;
+    }
+    h1 {
+      text-align: center;
+      font-size: x-large;
+      color: #0047ab;
+      margin: 30px 0 10px 0;
+    }
+    .producto a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .carrito {
+            display: flex;
+            align-items: center;
+            font-weight: bold; /* Hace que la letra sea más gruesa */
+            font-size: 18px;
+        }
+
+        .imagen-placeholder {
+            width: 40px; 
+            height: 40px;
+            background-color: #ccc; 
+            border: 2px solid #000; 
+            margin-right: 10px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: black;
+        }
+
+  </style>
+</head>
+<body>
+  <div class="barra">
+    <div>
+      <a href="inicioSesion.html">Inicia Sesión</a>
+      <a href="Filtros.html">Categorías</a>
+      <a href="">Buscar</a>
+    </div>
+
+    <div>
+      <a href="carritoCompras.html">Carrito</a>
+    </div>
+
+  </div>
+  <h1>Bienvenido a Envejecimiento Exitoso</h1>
+  <div class="productos">
+    <div class="producto">
+      <a href="detallesProducto.html">
+        <div class="img"><img src="#" alt="Agregar imagen"><p>Chocolates</p></div>
+      </a>
+    </div>
+    <div class="producto">
+      <a href="detallesProducto.html">
+        <div class="img"><img src="#" alt="Agregar imagen"><p>Globos</p></div>
+      </a>
+    </div>
+    <div class="producto">
+      <a href="detallesProducto.html">
+        <div class="img"><img src="#" alt="Agregar imagen"><p>Suéter</p></div>
+      </a>
+    </div>
+    <div class="producto">
+      <a href="detallesProducto.html">
+        <div class="img"><img src="#" alt="Agregar imagen"><p>Libro</p></div>
+      </a>
+    </div>
+    <div class="producto">
+      <a href="detallesProducto.html">
+        <div class="img"><img src="#" alt="Agregar imagen"><p>Camisa</p></div>
+      </a>
+    </div>
+    <div class="producto">
+      <a href="detallesProducto.html">
+        <div class="img"><img src="#" alt="Agregar imagen"><p>Llavero</p></div>
+      </a>
+    </div>
+     <div class="producto">
+      <a href="detalle-producto.html">
+        <div class="img"><img src="#" alt="Agregar imagen"><p>Oso de peluche</p></div>
+      </a>
+    </div>
+     <div class="producto">
+      <a href="detallesProducto.html">
+        <div class="img"><img src="#" alt="Agregar imagen"><p>Flores artificiales</p></div>
+      </a>
+    </div>
+     <div class="producto">
+      <a href="detallesProducto.html">
+        <div class="img"><img src="#" alt="Agregar imagen"><p>Gorra</p></div>
+      </a>
+    </div>
+     <div class="producto">
+      <a href="detallesProducto.html">
+        <div class="img"><img src="#" alt="Agregar imagen"><p>Collar de corazón</p></div>
+      </a>
+    </div>
+    <hr style="margin: 20px 0; border: 1px solid #ccc;">
+    <p style="font-size: small; color: #333;">Desarrollado por Equipo 3.</p>
+    <div style="margin-top: 10px;">
+      <a href="inicioSesionAdmin.html" class="btn">Iniciar sesión como Administrador</a>
+    </div>
+  </div>
+</body>
+</html>
