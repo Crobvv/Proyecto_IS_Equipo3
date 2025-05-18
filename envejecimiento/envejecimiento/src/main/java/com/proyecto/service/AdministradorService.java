@@ -19,17 +19,14 @@ public class AdministradorService {
     private PasswordEncoder passwordEncoder;
 
     public Administrador registrarAdministrador(Administrador admin) {
-        int maxId = administradorRepository.findMaxIdUsuario(); // Consultamos el idUsuario más alto entre admins
-
-        int nextId; // Calculamos el siguiente según la progresión de 10 en 10
-        if(maxId < 1000) {
-            nextId = 1000;
-        } else {
-            nextId = maxId + 10;
+        // Validamos la clave de acceso
+        if(admin.getAccessKey() == null || !admin.getAccessKey().equals("210525")) {
+            throw new IllegalArgumentException("Clave de acceso inválida. Registro denegado.");
         }
-
+        
+        int maxId = administradorRepository.findMaxIdUsuario(); // Consultamos el idUsuario más alto entre admins
+        int nextId = (maxId < 1000) ? 1000 : maxId + 10; // Calculamos el siguiente según la progresión de 10 en 10
         admin.setIdUsuario(nextId); // Asigna al objeto antes de guardar
-
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         
         return administradorRepository.save(admin);
@@ -43,8 +40,19 @@ public class AdministradorService {
         return administradorRepository.findById(id).orElse(null);
     }
 
-    public boolean autenticar(String correo, String rawPassword) {
+    public Administrador login(String correo, String rawPassword, String accessKey) {
         Optional<Administrador> adminOpt = buscarPorCorreo(correo);
-        return adminOpt.isPresent() && passwordEncoder.matches(rawPassword, adminOpt.get().getPassword());
-    }   
+
+        if(adminOpt.isPresent()) {
+            Administrador admin = adminOpt.get();
+
+            boolean passwordValida = passwordEncoder.matches(rawPassword, admin.getPassword());
+            boolean claveCorrecta = accessKey != null && accessKey.equals("210525");
+
+            if(passwordValida && claveCorrecta) {
+                return admin;
+            }
+        }
+        return null;
+    }
 }

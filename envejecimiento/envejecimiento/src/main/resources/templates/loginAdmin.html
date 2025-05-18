@@ -17,16 +17,16 @@
                         <p th:text="${error}"></p>
                     </div>
 
-                    <h3 class="card-title text-center mb-4">Login Administrador</h3>
-                    <form th:action="@{/admin/login/admin}" method="post">
+                    <h3 class="card-title text-center mb-4">Iniciar sesión como administrador</h3>
+                    <form th:action="@{/admin/loginAdmin}" method="post">
                         <!-- Email -->
                         <div class="mb-3">
                             <label for="email" class="form-label">Correo electrónico</label>
                             <input
                                 type="email"
                                 class="form-control"
-                                id="email"
-                                name="email"
+                                id="correo"
+                                name="correo"
                                 placeholder="admin@tudominio.com"
                                 required>
                         </div>
@@ -49,7 +49,7 @@
                                 class="form-control"
                                 id="accessKey"
                                 name="accessKey"
-                                placeholder="123456"
+                                placeholder="******"
                                 pattern="\d{6}"
                                 title="Debe contener exactamente 6 dígitos"
                                 required>
@@ -63,11 +63,11 @@
                     <hr>
                     <p class="text-center">
                         ¿No eres administrador? 
-                        <a th:href="@{/cliente/login}">Login Cliente</a>
+                        <a th:href="@{/cliente/login}">Iniciar Sesión</a>
                     </p>
                     <p class="text-center">
                         ¿No tienes cuenta? 
-                        <a th:href="@{/admin/registroAdmin}">Registrar Administrador</a>
+                        <a th:href="@{/admin/registroAdmin}">Registrarse</a>
                     </p>
                 </div>
             </div>

@@ -20,25 +20,46 @@ public class AdministradorController {
     @Autowired
     private AdministradorService administradorService;
 
-    @GetMapping("/login/admin")
-    public String mostrarLoginAdministrador() {
+    @GetMapping("/loginAdmin")
+    public String mostrarLoginAdmin() {
         return "loginAdmin";
     }
 
-    @GetMapping("/registro/admin")
+    @PostMapping("/loginAdmin")
+    public String procesarLoginAdmin(@ModelAttribute Administrador administrador, Model model) {
+        Administrador adminAutenticado = administradorService.login(
+            administrador.getCorreo(),
+            administrador.getPassword(), 
+            administrador.getAccessKey()
+        );
+
+        if(adminAutenticado != null) {
+            return "redirect:/admin/panelAdmin";
+        } else {
+            model.addAttribute("error", "Credenciales o clave de acceso inválidas.");
+            return "loginAdmin";
+        }
+    }
+
+    @GetMapping("/registroAdmin")
     public String mostrarFormularioRegistro(Model model) {
         model.addAttribute("administrador", new Administrador());
-        return "registro/admin";
+        return "registroAdmin";
     }
 
-    @PostMapping("/registro/admin")
-    public String registrarAdministrador(@ModelAttribute Administrador administrador) {
-        administradorService.registrarAdministrador(administrador);
-        return "redirect:/login?admin";
+    @PostMapping("/registroAdmin")
+    public String registrarAdmin(@ModelAttribute Administrador administrador, Model model) {
+        try {
+            administradorService.registrarAdministrador(administrador);   
+            return "redirect:/login?admin";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            return "registroAdmin";
+        }
     }
 
-    @GetMapping("/panel")
+    @GetMapping("/panelAdmin")
     public String mostrarPanelAdmin() {
-        return "admin/panel";
+        return "panelAdmin";
     }
 }
