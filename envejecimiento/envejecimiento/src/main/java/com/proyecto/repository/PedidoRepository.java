@@ -11,5 +11,5 @@ import com.proyecto.model.Pedido;
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     List<Pedido> findByClienteId(Long clienteId);
-    Optional<Pedido> findByClienteIdAndEstado(int clienteId, String estado);
+    Optional<Pedido> findByClienteIdAndEstado(Long id, String estado);
 }

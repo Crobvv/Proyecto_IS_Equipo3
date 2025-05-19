@@ -1,6 +1,5 @@
 package com.proyecto.controller;
 
-import com.proyecto.model.Cliente;
 import com.proyecto.model.Pago;
 import com.proyecto.model.Pedido;
 import com.proyecto.service.PedidoService;
@@ -14,18 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @RestController
-@RequestMapping("/{api}/pedidos")
+@RequestMapping("/api/pedido")
 public class PedidoController {
 
     @Autowired
     private PedidoService pedidoService;
-
-    // Inicia o recarga pedido activo para un cliente (al hacer login)
-    @PostMapping("/iniciar")
-    public ResponseEntity<Void> iniciarPedido(@RequestBody Cliente cliente) {
-        pedidoService.iniciarPedido(cliente);
-        return ResponseEntity.ok().build();
-    }
 
     // Agrega un producto al carrito del pedido activo
     @PostMapping("/carrito/{productoId}")
@@ -54,11 +46,11 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoConfirmado);
     }
 
-    // Cierra la sesión del cliente y guarda el carrito en el pedido activo
+    /* Cierra la sesión del cliente y guarda el carrito en el pedido activo
     @PostMapping("/cerrar-sesion")
     public ResponseEntity<Void> cerrarSesion() {
-            return ResponseEntity.ok().build();
-    }
+        return ResponseEntity.ok().build();
+    } */
 
     // Listar todos los pedidos confirmados
     @GetMapping

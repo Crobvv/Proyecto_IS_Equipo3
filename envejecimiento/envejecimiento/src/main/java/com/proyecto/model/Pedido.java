@@ -13,7 +13,7 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPedido;
 
-    private String estado;      // "Activo", "Pendiente", etc.
+    private String estado;      // "activo", "pendiente", etc.
     private Date fechaCreacion;
     private Date fechaEntrega;
     private String detalles;
@@ -40,7 +40,7 @@ public class Pedido {
     // Incializa pedido y su carrito interno con estado activo
     public Pedido() {
         this.carritoCompras = new CarritoCompras();
-        this.estado = "activo";
+        this.estado = "ACTIVO";
         this.fechaCreacion = new Date();
     }
 
@@ -65,7 +65,7 @@ public class Pedido {
     // Método para trabajar con carrito y luego confirmar
     public void confirmarPedido() {
         guardarCarritoEnPedido();
-        this.estado = "pendiente";
+        this.estado = "PENDIENTE";
         this.fechaCreacion = new Date();
         carritoCompras.vaciarCarrito();
     }
@@ -153,5 +153,4 @@ public class Pedido {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
 }

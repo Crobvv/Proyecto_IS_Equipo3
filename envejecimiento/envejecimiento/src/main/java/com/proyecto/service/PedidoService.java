@@ -30,7 +30,7 @@ public class PedidoService {
     // Inicia o recarga el pedido activo al iniciar sesión
     // Busca un pedido en estado "activo" en BD, si no, crea uno
     public void iniciarPedido(Cliente cliente) {
-        Optional<Pedido> encontrado = pedidoRepository.findByClienteIdAndEstado(cliente.getIdUsuario(), "activo");
+        Optional<Pedido> encontrado = pedidoRepository.findByClienteIdAndEstado(cliente.getId(), "ACTIVO");
         if(encontrado.isPresent()) {
             this.pedidoActivo = encontrado.get(); // Aquí @PostLoad reconstruye el carritoInterno
         } else {

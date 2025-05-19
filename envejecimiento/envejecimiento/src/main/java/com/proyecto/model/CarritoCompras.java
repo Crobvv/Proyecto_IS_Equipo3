@@ -25,6 +25,10 @@ public class CarritoCompras {
         calcularTotal();
     }
 
+    public int getCantidadProductos() {
+        return productos.size();
+    }
+
     public void calcularTotal() {
         total = productos.stream().mapToDouble(Producto::getPrecio).sum();
     }

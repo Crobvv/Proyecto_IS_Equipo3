@@ -67,6 +67,10 @@ public class Cliente extends Usuario {
     public List<Pedido> getPedidos() { return pedidos; }
     public void setPedidos(List<Pedido> pedidos) { this.pedidos = pedidos; }
 
+    public Long getId() {
+        return id;
+    }
+
     @Override
     public void iniciarSesion() {
         System.out.println("Inicio de sesión para cliente: " + getNombre());
