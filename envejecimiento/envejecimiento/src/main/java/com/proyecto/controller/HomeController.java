@@ -28,4 +28,10 @@ public class HomeController {
     public String mostrarLoginCliente() {
         return "login";
     }
+
+    @GetMapping("/masProductos")
+    public String verTodosProductos(Model model) {
+        model.addAttribute("productos", productoService.listarTodos());
+        return "home"; // o el nombre de tu plantilla de listado completo
+    }
 }

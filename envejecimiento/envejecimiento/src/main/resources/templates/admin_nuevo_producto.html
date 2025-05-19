@@ -8,26 +8,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    
     @font-face {
-        font-family: 'MercadoLibre';
-        src: url('https://raw.githubusercontent.com/Demian9524/fuentesEnvejecimiento/main/MercadoLibre.otf')
-            format('opentype');
-        font-weight: normal;
-        font-style: normal;
-      }
-      @font-face {
-        font-family: 'MercadoLibre';
-        src: url('https://raw.githubusercontent.com/Demian9524/fuentesEnvejecimiento/main/MercadoLibre-Bold.otf')
-            format('opentype');
-        font-weight: bold;
-        font-style: normal;
-      }
-
-      body, input, button, select, textarea {
-        font-family: 'MercadoLibre', sans-serif !important;
+      font-family: 'MercadoLibre';
+      src: url('https://raw.githubusercontent.com/Demian9524/fuentesEnvejecimiento/main/MercadoLibre.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
     }
-
+    @font-face {
+      font-family: 'MercadoLibre';
+      src: url('https://raw.githubusercontent.com/Demian9524/fuentesEnvejecimiento/main/MercadoLibre-Bold.otf') format('opentype');
+      font-weight: bold;
+      font-style: normal;
+    }
+    body, input, button, select, textarea {
+      font-family: 'MercadoLibre', sans-serif !important;
+    }
     body { background-color: #eaeaea; }
     .navbar-amazon { background-color: #fcf5e8; padding: 10px 20px; }
     .btn-outline-primary {
@@ -66,16 +61,12 @@
 
   <div class="container mt-5">
     <h2 class="text-center mb-4">Agregar Nuevo Producto</h2>
+
     <form th:action="@{/admin/productos}" th:object="${producto}" method="post" class="mx-auto" style="max-width:600px;">
-      
-       <div class="mb-3">
-            <label for="idProducto" class="form-label">ID Producto</label>
-                <input type="number"
-                    class="form-control"
-                    id="idProducto"
-                    th:field="*{idProducto}"
-                    placeholder="Ingresa el ID"/>
-      </div>
+      <!-- Campos ocultos para edición -->
+      <input type="hidden" th:if="${producto.idProducto} != null" th:field="*{idProducto}" />
+      <input type="hidden" th:if="${producto.version} != null" th:field="*{version}" />
+
       <div class="mb-3">
         <label for="nombre" class="form-label">Nombre</label>
         <input type="text" class="form-control" id="nombre" th:field="*{nombre}" placeholder="Nombre del producto" required>
@@ -92,18 +83,14 @@
         <label for="categoria" class="form-label">Categoría</label>
         <select id="categoria" class="form-select" th:field="*{categoria}" required>
           <option value="" disabled selected>-- Selecciona categoría --</option>
-          <option th:each="cat : ${categorias}"
-                  th:value="${cat.name()}"
-                  th:text="${cat}"></option>
+          <option th:each="cat : ${categorias}" th:value="${cat.name()}" th:text="${cat}"></option>
         </select>
       </div>
       <div class="mb-3">
         <label for="festividad" class="form-label">Festividad</label>
         <select id="festividad" class="form-select" th:field="*{festividad}" required>
           <option value="" disabled selected>-- Selecciona festividad --</option>
-          <option th:each="fest : ${festividades}"
-                  th:value="${fest.name()}"
-                  th:text="${fest}"></option>
+          <option th:each="fest : ${festividades}" th:value="${fest.name()}" th:text="${fest}"></option>
         </select>
       </div>
       <div class="mb-3">
