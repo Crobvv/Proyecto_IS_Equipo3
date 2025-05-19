@@ -9,24 +9,22 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
       @font-face {
-        font-family: 'Amazon';
-        src: url('https://tusitio.com/fonts/Bookerly-Regular.ttf') format('truetype');
+        font-family: 'MercadoLibre';
+        src: url('https://raw.githubusercontent.com/Demian9524/fuentesEnvejecimiento/main/MercadoLibre.otf')
+            format('opentype');
         font-weight: normal;
         font-style: normal;
       }
-
       @font-face {
-        font-family: 'Amazon';
-        src: url('https://tusitio.com/fonts/Bookerly-Bold.ttf') format('truetype');
+        font-family: 'MercadoLibre';
+        src: url('https://raw.githubusercontent.com/Demian9524/fuentesEnvejecimiento/main/MercadoLibre-Bold.otf')
+            format('opentype');
         font-weight: bold;
         font-style: normal;
       }
 
-      * {
-        font-family: 'Amazon', sans-serif;
-      }
-      body, * {
-        font-family: 'Amazon', sans-serif !important;
+      body, input, button, select, textarea {
+        font-family: 'MercadoLibre', sans-serif !important;
       }
 
       /* Navbar estilo Amazon */
@@ -241,17 +239,16 @@
 <!-- Submenú -->
 <nav class="sub-navbar text-center py-2">
   <div class="container d-flex flex-wrap justify-content-center gap-4">
-    <a href="#" class="sub-nav-link">Supermercado</a>
-    <a href="#" class="sub-nav-link">Los más vendidos</a>
-    <a href="#" class="sub-nav-link">Promociones</a>
-    <a href="#" class="sub-nav-link">Moda</a>
-    <a href="#" class="sub-nav-link">Hogar y Cocina</a>
-    <a href="#" class="sub-nav-link">Electrónicos</a>
-    <a href="#" class="sub-nav-link">Videojuegos</a>
+    <a href="#" class="sub-nav-link">Niños</a>
+    <a href="#" class="sub-nav-link">Adultos</a>
+    <a href="#" class="sub-nav-link">Salud</a>
+    <a href="#" class="sub-nav-link">Alimentos</a>
+    <a href="#" class="sub-nav-link">Mascotas</a>
+    <a href="#" class="sub-nav-link">Decoración</a>
     <a href="#" class="sub-nav-link">Libros</a>
-    <a href="#" class="sub-nav-link">Outlet</a>
-    <a href="#" class="sub-nav-link">Accesorios</a>
-    <a href="#" class="sub-nav-link">Regalos</a>
+    <a href="#" class="sub-nav-link">Joyas y Bisutería</a>
+    <a href="#" class="sub-nav-link">Moda y Accesorios</a>
+    <a href="#" class="sub-nav-link">Juguetes y Juegos</a>
   </div>
 </nav>
 
@@ -263,48 +260,27 @@
 </section>
 
 <!-- Productos -->
-<div class="productos-con-borde container my-5 py-4 px-4">
+<!-- PRODUCTOS DESTACADOS -->
+<div class="container my-5 py-4">
+  <h2 class="mb-4 text-center">Productos destacados</h2>
   <div class="row row-cols-1 row-cols-md-4 g-4">
-    <div class="col">
+    <div class="col" th:each="prod : ${productos}">
       <div class="card h-100">
-        <img src="/img/chocolates.jpg" class="card-img-top img-fluid" style="height: 200px; object-fit: cover;" alt="Chocolates">
+        <img th:src="@{|/img/${prod.rutaImagen}|}"
+            class="card-img-top img-fluid"
+            style="height:200px; object-fit:cover;"
+            th:alt="${prod.nombre}">
         <div class="card-body">
-          <h5 class="card-title">Caja de chocolates surtidos</h5>
-          <p class="card-text">14 Febrero | Regalos | $250.00</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card h-100">
-        <img src="/img/velas.jpg" class="card-img-top img-fluid" style="height: 200px; object-fit: cover;" alt="Velas">
-        <div class="card-body">
-          <h5 class="card-title">Set de 3 velas aromáticas</h5>
-          <p class="card-text">14 Febrero | Decoración | $180.00</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card h-100">
-        <img src="/img/collar.jpg" class="card-img-top img-fluid" style="height: 200px; object-fit: cover;" alt="Collar">
-        <div class="card-body">
-          <h5 class="card-title">Collar en forma de corazón</h5>
-          <p class="card-text">14 Febrero | Accesorios | $350.00</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card h-100">
-        <img src="/img/perfume.jpg" class="card-img-top img-fluid" style="height: 200px; object-fit: cover;" alt="Perfume">
-        <div class="card-body">
-          <h5 class="card-title">Perfume Citadel</h5>
-          <p class="card-text">14 Febrero | Regalos | $400.00</p>
+          <h5 class="card-title" th:text="${prod.nombre}"></h5>
+          <p class="card-text">
+            <span th:text="${prod.categoria}"></span> |
+            <span th:text="${prod.precio + ' MXN'}"></span>
+          </p>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Botón Ver más -->
-  <button class="ver-mas-btn" onclick="window.location.href='masProductos.html'">Ver más productos</button>
+  <button class="ver-mas-btn" onclick="window.location.href='/masProductos'">Ver más productos</button>
 </div>
 
 <!-- Pie de página -->

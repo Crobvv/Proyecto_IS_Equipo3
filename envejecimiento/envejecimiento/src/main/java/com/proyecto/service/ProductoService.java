@@ -14,8 +14,19 @@ public class ProductoService {
     @Autowired
     private ProductoRepository productoRepository;
 
-    public Producto registrarProducto(Producto producto) {
+    /**
+     * Persiste o actualiza un producto en la base de datos.
+     */
+    public Producto save(Producto producto) {
         return productoRepository.save(producto);
+    }
+
+    /**
+     * Método existente para registrar producto
+     * (puedes dejarlo o llamarlo internamente a save())
+     */
+    public Producto registrarProducto(Producto producto) {
+        return save(producto);
     }
 
     public List<Producto> listarTodos() {
@@ -38,4 +49,3 @@ public class ProductoService {
         productoRepository.deleteById(id);
     }
 }
-
