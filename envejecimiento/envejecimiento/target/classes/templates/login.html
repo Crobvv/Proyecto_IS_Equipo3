@@ -17,44 +17,40 @@
                         <p th:text="${error}"></p>
                     </div>
 
-                    <h3 class="card-title text-center mb-4">Iniciar sesión</h3>
+                     <h3 class="card-title text-center mb-4">Iniciar sesión</h3>
                     <form th:action="@{/cliente/login}" method="post">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Correo o usuario</label>
-                            <input type="text"
-                                   class="form-control"
-                                   id="email"
-                                   name="email"
-                                   required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Contraseña</label>
-                            <input type="password"
-                                   class="form-control"
-                                   id="password"
-                                   name="password"
-                                   required>
-                        </div>
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-                            <a th:href="@{/home}" class="btn btn-secondary w-100">Cancelar</a>
-                        </div>
-                    </form>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo o usuario</label>
+                        <input type="text"
+                               class="form-control"
+                               id="email"
+                               name="email"
+                               required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password"
+                               class="form-control"
+                               id="password"
+                               name="password"
+                               required>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                        <a th:href="@{/home}" class="btn btn-secondary w-100">Cancelar</a>
+                    </div>
+                </form>
 
-                    <hr>
-                    <p class="text-center">
-                        ¿No tienes cuenta?
-                        <a th:href="@{/cliente/registro}">Crear cuenta</a>
-                    </p>
-                    <p class="text-center">
-                        ¿Eres administrador?
-                        <a th:href="@{/admin/loginAdmin}">Iniciar sesión como Administrador</a>
-                    </p>
-                </div>
+                <hr>
+                <p class="text-center">
+                    ¿No tienes cuenta?
+                    <a th:href="@{/cliente/registro}">Crear cuenta</a>
+                </p>
+                <p class="text-center">
+                    ¿Eres administrador?
+                    <a th:href="@{/admin/loginAdmin}">Iniciar sesión como Administrador</a>
+                </p>
             </div>
         </div>
     </div>
 </div>
-
-</body>
-</html>
