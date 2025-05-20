@@ -59,12 +59,16 @@ public class PedidoService {
     }
 
     public void eliminarProductoDelCarrito(int productoId) {
-        Producto producto = productoRepository.findById(productoId)
-            .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
-        getPedidoActivo().getCarritoCompras().eliminarProducto(producto);
+        // Busca el producto en el carrito (no en el repositorio)
+        Producto productoEnCarrito = getPedidoActivo().getCarritoCompras().getProductoDelCarrito(productoId);
 
-        pedidoActivo.guardarCarritoEnPedido();
-        pedidoRepository.save(pedidoActivo);
+        if (productoEnCarrito != null) {
+            getPedidoActivo().getCarritoCompras().eliminarProducto(productoEnCarrito);
+            pedidoActivo.guardarCarritoEnPedido();
+            pedidoRepository.save(pedidoActivo);
+        } else {
+            throw new RuntimeException("Producto no encontrado en el carrito");
+        }
     }
 
     public CarritoCompras verCarrito() {

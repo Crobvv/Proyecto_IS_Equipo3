@@ -10,13 +10,16 @@ public enum Categoria {
     LIBROS("Libros"),
     JOYAS_Y_BISUTERIA("Joyas y Bisutería"),
     MODA_Y_ACCESORIOS("Moda y Accesorios"),
-    JUGUETES_Y_JUEGOS("Juguetes y Juegos");  // ← Sin coma aquí
+    JUGUETES_Y_JUEGOS("Juguetes y Juegos");
 
     private final String label;
 
-    // Constructor correcto
     Categoria(String label) {
         this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
     }
 
     @Override

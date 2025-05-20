@@ -22,6 +22,8 @@ public class ReporteVentasController {
     @Autowired
     private ReporteVentasService reporteVentasService;
 
+
+    
     @GetMapping
     public List<ReporteVentas> listarReportes() {
         return reporteVentasService.listarReportes();

@@ -1,82 +1,97 @@
 package com.proyecto.controller;
 
+// import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.proyecto.model.Cliente;
 import com.proyecto.service.ClienteService;
 import com.proyecto.service.PedidoService;
-import com.proyecto.service.ProductoService;
-import org.springframework.ui.Model;
+
 import jakarta.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @Controller
 @RequestMapping("/cliente")
 public class ClienteController {
 
-    private final ProductoService productoService;
+    private final ClienteService clienteService;
+    private final PedidoService pedidoService;
 
-    @Autowired
-    private ClienteService clienteService;
+    // @Autowired
+    public ClienteController(ClienteService clienteService,
+                             PedidoService pedidoService) {
+        this.clienteService = clienteService;
+        this.pedidoService  = pedidoService;
+    }
 
-    @Autowired
-    private PedidoService pedidoService;
-
-    ClienteController(ProductoService productoService) {
-        this.productoService = productoService;
-    } // Inyectamos el servicio
-
+    // 1) Registro → al terminar, lleva a /cliente/login
     @GetMapping("/registro")
     public String mostrarFormularioRegistro(Model model) {
         model.addAttribute("cliente", new Cliente());
         return "registro";
     }
-    
+
     @PostMapping("/registro")
     public String registrarCliente(@ModelAttribute Cliente cliente) {
         clienteService.registrarCliente(cliente);
-        return "redirect:/login";
+        return "redirect:/cliente/login";
     }
 
+    // 2) Login GET → si ya hay sesión, va al home principal
     @GetMapping("/login")
-    public String mostrarLoginCliente() {
+    public String mostrarLoginCliente(HttpSession session) {
+        if (session.getAttribute("cliente") != null) {
+            return "redirect:/";    // tu “main”
+        }
         return "login";
     }
 
+    // 3) Login POST → al validar, redirige a main ("/")
     @PostMapping("/login")
-    public String verificarCredenciales(@RequestParam String email, @RequestParam String password, HttpSession session,  Model model) {
+    public String verificarCredenciales(
+            @RequestParam String email,
+            @RequestParam String password,
+            HttpSession session,
+            Model model) {
+
         Cliente cliente = clienteService.validarCredenciales(email, password);
-        if(cliente != null) {
+        if (cliente != null) {
             session.setAttribute("cliente", cliente);
             pedidoService.iniciarPedido(cliente);
-            return "redirect:/cliente/panel";
+            return "redirect:/";    // de nuevo al “main”
         } else {
-            model.addAttribute("error", "Correo o constraseña incorrectos");
+            model.addAttribute("error", "Correo o contraseña incorrectos");
             return "login";
         }
     }
 
-    @GetMapping("/panel")
-    public String mostrarPanelCliente(HttpSession session, Model model) {
-        Cliente cliente = (Cliente) session.getAttribute("cliente");
-        if(cliente == null) {
-            return "redirect:/cliente/login";
-        }
-
-        model.addAttribute("productos", productoService.listarTodos());
-        model.addAttribute("cliente", cliente);
-        model.addAttribute("carrito", pedidoService.getPedidoActivo().getCarritoCompras().getCantidadProductos());
-        return "panel";
-    }
-
+    // 4) Logout → limpia sesión y vuelve al login
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        pedidoService.cerrarSesion(); // Guarda y limpia el pedido activo
-        session.invalidate(); // Invalida la sesión entera
+        pedidoService.cerrarSesion();
+        session.invalidate();
         return "redirect:/cliente/login?logout";
     }
+
+    @GetMapping("/carrito")
+        public String mostrarCarrito(HttpSession session, Model model) {
+            Cliente cliente = (Cliente) session.getAttribute("cliente");
+            if (cliente == null) {
+                return "redirect:/cliente/login";
+            }
+
+            var pedido = pedidoService.getPedidoActivo();
+            var carritoCompras = pedido.getCarritoCompras();
+
+            model.addAttribute("carrito", carritoCompras);
+            model.addAttribute("items", pedidoService.listarTodos());
+            model.addAttribute("total", carritoCompras.getTotal());
+
+            return "carrito";
+        }
 }

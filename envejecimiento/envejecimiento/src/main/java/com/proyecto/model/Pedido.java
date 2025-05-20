@@ -20,7 +20,7 @@ public class Pedido {
     
     private double total;
 
-    @ManyToMany
+    @ManyToMany (cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinTable(
         name = "pedido_producto",
         joinColumns = @JoinColumn(name = "pedido_id"),
@@ -78,6 +78,7 @@ public class Pedido {
     public void solicitarReembolso() {
         System.out.println("Reembolso solicitado para el pedido " + idPedido);
     }
+    
 
     // Getters y setters
     

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pantalla de Pago</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    @font-face { font-family: 'MercadoLibre'; src: url('https://raw.githubusercontent.com/Demian9524/fuentesEnvejecimiento/main/MercadoLibre.otf') format('opentype'); }
+    @font-face { font-family: 'MercadoLibre'; src: url('https://raw.githubusercontent.com/Demian9524/fuentesEnvejecimiento/main/MercadoLibre-Bold.otf') format('opentype'); font-weight: bold; }
+    body, input, button, select, textarea { font-family: 'MercadoLibre', sans-serif !important; background-color: #fcf5e8; }
+    .navbar-amazon { background-color: #fcf5e8; padding: 10px 20px; }
+    .sub-navbar { background-color: #4a3537; }
+    .sub-nav-link { color: #ffffff; font-size: 14px; text-decoration: none; font-weight: bold; }
+    .sub-nav-link:hover { color: #ffa41c; }
+    .btn-user { background-color: #80181f; color: white; border: none; font-weight: bold; }
+    .btn-user:hover { background-color: #a3232c; }
+    .btn-back { background-color: #d1b0b9; color: black; font-weight: bold; }
+    .btn-primary { background-color: #80181f; border: none; font-weight: bold; }
+    .btn-primary:hover { background-color: #a3232c; }
+    .summary-card { background-color: #ffffff; border-radius: .5rem; padding: 1rem; box-shadow: 0 .25rem .5rem rgba(0,0,0,.1); }
+    footer { background-color: #4a3537; color: white; }
+    footer a { color: #94908e; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-amazon">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <a class="navbar-brand me-3" href="/home">
+          <img src="https://raw.githubusercontent.com/Demian9524/fuentesEnvejecimiento/main/logo.png"
+               alt="Logo" style="height:120px;">
+        </a>
+        <div class="ubicacion-box d-flex align-items-start gap-2 ps-2">
+          <span>📍</span>
+          <div>
+            <div th:text="${cliente.direccionEnvio}">Entrega en Tlalpan 14390</div>
+            <a href="#">Actualizar ubicación</a>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex align-items-center flex-grow-1 justify-content-center">
+        <form class="d-flex" role="search" style="max-width:500px; width:100%;">
+          <input class="form-control me-2" type="search" placeholder="Buscar productos...">
+          <button class="btn btn-light">🔍</button>
+        </form>
+      </div>
+      <div class="d-flex align-items-center ms-3">
+        <a href="/cliente/panel" class="btn btn-outline-primary me-2">
+          🛒 <span th:text="${carrito.productos.size()}">0</span>
+        </a>
+        <a href="/cliente/panel" class="btn btn-user">
+          <span th:text="${cliente.nombre}">Usuario</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+  <!-- SUB NAVBAR -->
+  <nav class="sub-navbar text-center py-2">
+    <div class="container d-flex flex-wrap justify-content-center gap-4">
+      <a href="#" class="sub-nav-link">Niños</a>
+      <a href="#" class="sub-nav-link">Adultos</a>
+      <a href="#" class="sub-nav-link">Salud</a>
+      <a href="#" class="sub-nav-link">Alimentos</a>
+      <a href="#" class="sub-nav-link">Mascotas</a>
+      <a href="#" class="sub-nav-link">Decoración</a>
+      <a href="#" class="sub-nav-link">Libros</a>
+      <a href="#" class="sub-nav-link">Joyas y Bisutería</a>
+      <a href="#" class="sub-nav-link">Moda y Accesorios</a>
+      <a href="#" class="sub-nav-link">Juguetes y Juegos</a>
+    </div>
+  </nav>
+
+  <div class="container my-5">
+    <a href="/pedido/carrito" class="btn btn-back mb-4">← Volver al carrito</a>
+    <h2 class="mb-4">Proceder al Pago</h2>
+
+    <div class="row">
+      <!-- FORMULARIO DE PAGO -->
+      <div class="col-lg-8">
+        <form th:action="@{/pedido/pago}" th:object="${pagoRequest}" method="post">
+          <!-- Dirección de Envío -->
+          <div class="mb-4">
+            <label class="form-label fw-bold">Dirección de envío</label>
+            <div class="border rounded p-3">
+              <div th:text="${cliente.direccionEnvio}">C. Pilares 606, Col. del Valle Centro, BJ, 03100</div>
+              <a href="#" class="small">Editar</a>
+            </div>
+          </div>
+          <!-- Método de Envío -->
+          <div class="mb-4">
+            <label class="form-label fw-bold">Método de envío</label>
+            <div class="border rounded p-3">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" th:field="*{metodoEnvio}" value="UPS Ground" id="envio1">
+                <label class="form-check-label" for="envio1">UPS Ground — $60.35 MXN</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" th:field="*{metodoEnvio}" value="FedEx Express" id="envio2">
+                <label class="form-check-label" for="envio2">FedEx Express — $95.00 MXN</label>
+              </div>
+            </div>
+          </div>
+          <!-- Método de Pago -->
+          <div class="mb-4">
+            <label class="form-label fw-bold">Método de pago</label>
+            <div class="border rounded p-3 mb-3">
+              <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" alt="PayPal" style="height:24px;">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa" style="height:24px;">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Mastercard_logo.svg" alt="Mastercard" style="height:24px;">
+            </div>
+            <div class="row g-2">
+              <div class="col-md-6">
+                <input type="text" th:field="*{numeroTarjeta}" class="form-control" placeholder="Número de tarjeta">
+              </div>
+              <div class="col-md-4">
+                <input type="text" th:field="*{nombreTitular}" class="form-control" placeholder="Nombre del titular">
+              </div>
+              <div class="col-md-2">
+                <input type="text" th:field="*{mesExp} + '/' + *{anoExp}" class="form-control" placeholder="MM/AA">
+              </div>
+              <div class="col-md-2">
+                <input type="text" th:field="*{cvv}" class="form-control" placeholder="CVV">
+              </div>
+            </div>
+          </div>
+          <!-- Dirección de Facturación -->
+          <div class="mb-4">
+            <label class="form-label fw-bold">Dirección de facturación</label>
+            <div class="border rounded p-3">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" th:field="*{facturaMisma}" value="true" id="factura1">
+                <label class="form-check-label" for="factura1">Igual que la dirección de envío</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" th:field="*{facturaMisma}" value="false" id="factura2">
+                <label class="form-check-label" for="factura2">Usar una dirección diferente</label>
+              </div>
+            </div>
+          </div>
+          <!-- Recordarme -->
+          <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" th:field="*{guardarInfo}" id="guardarInfo">
+            <label class="form-check-label" for="guardarInfo">
+              Guardar mi información para un pago más rápido
+            </label>
+          </div>
+          <!-- Botón Completar -->
+          <button type="submit" class="btn btn-primary w-100">Completar Orden</button>
+        </form>
+      </div>
+
+      <!-- RESUMEN DE PEDIDO -->
+      <div class="col-lg-4">
+        <div class="summary-card">
+          <h5 class="fw-bold">Resumen ( <span th:text="${carrito.productos.size()}">0</span> productos )</h5>
+          <hr>
+          <div class="d-flex justify-content-between">
+            <span>Subtotal</span>
+            <span th:text="${carrito.subtotal} + ' MXN'">$0</span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span>Envío</span>
+            <span th:text="${pagoRequest.metodoEnvio != null ? envioCost : '0.00'} + ' MXN'">$0</span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span>IVA</span>
+            <span th:text="${carrito.iva} + ' MXN'">$0</span>
+          </div>
+          <div class="input-group my-3">
+            <input type="text" class="form-control" placeholder="Cupón o código" th:field="*{codigoDescuento}">
+            <button class="btn btn-outline-secondary" th:onclick="|applyCoupon()|">Aplicar</button>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between fs-5 fw-bold">
+            <span>Total</span>
+            <span th:text="${carrito.totalConEnvio} + ' MXN'">$0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center py-4">
+    <p>Marketplace @Envejecimiento Exitoso</p>
+  </footer>
+</body>
+</html>

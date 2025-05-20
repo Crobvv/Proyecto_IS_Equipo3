@@ -53,6 +53,15 @@ public class CarritoCompras {
         this.total = total;
     }
 
+    public Producto getProductoDelCarrito(int idProducto) {
+        for(Producto p : productos) {
+            if(p.getIdProducto() == idProducto) {
+                return p;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return "CarritoCompras [productos=" + productos + ", total=" + total + "]";

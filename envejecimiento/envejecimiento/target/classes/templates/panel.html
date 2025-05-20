@@ -203,7 +203,7 @@
     <div class="d-flex align-items-center ms-3">
 
       <!-- Botón del carrito -->
-      <a href="/pedido/carrito" class="btn btn-outline-primary me-2">
+      <a href="/pedido/carrito/vista" class="btn btn-outline-primary me-2">
         🛒 Carrito (<span th:text="${carrito}">1</span>)
       </a>
 
@@ -245,27 +245,32 @@
   <button class="btn btn-dark">Explorar ofertas</button>
 </section>
 
-<!-- Productos destacados -->
+<!-- Productos -->
+<!-- PRODUCTOS DESTACADOS -->
 <div class="container my-5 py-4">
   <h2 class="mb-4 text-center">Productos destacados</h2>
   <div class="row row-cols-1 row-cols-md-4 g-4">
-    <div class="col" th:each="prod : ${productos}">
-      <div class="card h-100">
-        <img th:src="@{|/img/${prod.rutaImagen}|}"
-            class="card-img-top img-fluid"
-            style="height:200px; object-fit:cover;"
-            th:alt="${prod.nombre}">
-        <div class="card-body">
+    <div class="col d-flex"
+         th:each="prod : ${productos.size() > 8 ? productos.subList(0,8) : productos}">
+      <div class="card h-100 w-100">
+        <img th:src="@{/img/{ruta}(ruta=${prod.rutaImagen})}"
+             class="card-img-top"
+             style="height:200px; object-fit:cover;"
+             th:alt="${prod.nombre}">
+        <div class="card-body d-flex flex-column justify-content-between">
           <h5 class="card-title" th:text="${prod.nombre}"></h5>
-          <p class="card-text">
+          <p class="card-text mt-3 mb-0">
             <span th:text="${prod.categoria}"></span> |
-            <span th:text="${prod.precio + ' MXN'}"></span>
+            <span th:text="${prod.festividad}"></span> |
+            <span th:text="${'$' + prod.precio + ' MXN'}"></span>
           </p>
         </div>
       </div>
     </div>
   </div>
-  <button class="ver-mas-btn" onclick="window.location.href='/masProductos'">Ver más productos</button>
+  <button class="ver-mas-btn" onclick="window.location.href='/masProductos'">
+    Ver más productos
+  </button>
 </div>
 
 <!-- Pie de página -->
