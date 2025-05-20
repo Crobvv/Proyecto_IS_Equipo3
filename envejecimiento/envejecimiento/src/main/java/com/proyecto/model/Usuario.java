@@ -22,11 +22,11 @@ public abstract class Usuario {
       // Constructor vacío requerido para JPA
     }
 
-    public Usuario(int idUsuario, String nombre, String password, String correo, String contraseña) {
+    public Usuario(int idUsuario, String nombre, String password, String correo) {
       this.idUsuario = idUsuario;
       this.nombre = nombre;
       this.correo = correo;
-      this.password = contraseña;
+      this.password = password;
     }
 
     public Usuario(String nombre, String correo, String password) {

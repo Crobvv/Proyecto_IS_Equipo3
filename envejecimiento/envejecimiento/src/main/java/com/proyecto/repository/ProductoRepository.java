@@ -12,7 +12,11 @@ import com.proyecto.model.Producto;  // importa tu enum
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Integer> {
 
+    // Búsqueda por enum Categoria
     List<Producto> findByCategoria(Categoria categoria);
-    List<Producto> findByNombreContainingIgnoreCase(String nombre);
     List<Producto> findByFestividad(Festividad festividad);
+
+    // Búsqueda por nombre (contains, ignore case)
+    List<Producto> findByNombreContainingIgnoreCase(String nombre);
+    
 }

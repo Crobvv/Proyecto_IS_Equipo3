@@ -52,7 +52,6 @@ public class HomeController {
         return "home";
     }
 
-
     @GetMapping("/login")
     public String mostrarLoginCliente() {
         return "login";

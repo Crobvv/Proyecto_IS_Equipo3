@@ -22,6 +22,9 @@ public class Cliente extends Usuario {
 
     private String codigoPostal;
 
+    @Column(nullable = true)
+    private String direccionEnvio; // <- Campo agregado
+
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Factura> facturas;
 
@@ -40,9 +43,17 @@ public class Cliente extends Usuario {
     }
 
     public Cliente(String nombre, String correo, String password, String RFC, String codigoPostal) {
-        super(nombre, password, correo);
+        super(nombre, correo, password);
         this.RFC = RFC;
         this.codigoPostal = codigoPostal;
+        this.direccionEnvio = null;
+    }
+
+    public Cliente(String nombre, String correo, String password, String RFC, String codigoPostal, String direccionEnvio) {
+        super(nombre, correo, password);
+        this.RFC = RFC;
+        this.codigoPostal = codigoPostal;
+        this.direccionEnvio = direccionEnvio;
     }
 
     // Métodos adicionales
@@ -60,6 +71,9 @@ public class Cliente extends Usuario {
 
     public String getCodigoPostal() { return codigoPostal; }
     public void setCodigoPostal(String codigoPostal) { this.codigoPostal = codigoPostal; }
+
+    public String getDireccionEnvio() { return direccionEnvio; }
+    public void setDireccionEnvio(String direccionEnvio) { this.direccionEnvio = direccionEnvio; }
 
     public List<Factura> getFacturas() { return facturas; }
     public void setFacturas(List<Factura> facturas) { this.facturas = facturas; }
