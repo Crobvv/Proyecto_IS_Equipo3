@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirmación de Pedido - Envejecimiento Exitoso</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'MercadoLibre';
+      src: url('https://raw.githubusercontent.com/Demian9524/fuentesEnvejecimiento/main/MercadoLibre.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'MercadoLibre';
+      src: url('https://raw.githubusercontent.com/Demian9524/fuentesEnvejecimiento/main/MercadoLibre-Bold.otf') format('opentype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    body, input, button, select, textarea {
+      font-family: 'MercadoLibre', sans-serif !important;
+    }
+
+    .barra-superior {
+      background-color: #fcf5e8;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .barra-superior img {
+      height: 40px;
+    }
+
+    .barra-inferior {
+      background-color: #333;
+      padding: 15px 20px;
+      border-top: 1px solid #444;
+      text-align: center;
+      font-size: 14px;
+      color: #ccc;
+      margin-top: 50px;
+    }
+
+    .btn-principal {
+      background-color: #80181f;
+      color: white;
+      border: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 6px;
+    }
+
+    .btn-principal:hover {
+      background-color: #a3232c;
+    }
+
+    .titulo-confirmacion {
+      color: #80181f;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .resumen-box {
+      background-color: #fcf5e8;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 2rem;
+    }
+
+    .producto-item {
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+    }
+
+    .producto-item:last-child {
+      border-bottom: none;
+    }
+
+    .total {
+      font-weight: bold;
+      color: #4a3537;
+      font-size: 18px;
+    }
+
+    .info-envio {
+      font-size: 15px;
+      color: #565959;
+    }
+
+    .barra-lateral {
+      background-color: #fcf5e8;
+      min-height: 100%;
+      padding: 1rem;
+      border-right: 1px solid #ccc;
+    }
+
+    .espacio-central {
+      padding: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .barra-lateral {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra superior -->
+  <div class="barra-superior d-flex align-items-center">
+    <img src="https://raw.githubusercontent.com/Demian9524/fuentesEnvejecimiento/main/logo.png" alt="Logo" style="height: 120px;">
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Barra lateral izquierda -->
+      <div class="col-md-2 barra-lateral"></div>
+
+      <!-- Contenido central -->
+      <div class="col-md-8 espacio-central">
+        <h2 class="titulo-confirmacion text-center">¡Gracias por tu compra, <span th:text="${cliente.nombre}">Cliente</span>!</h2>
+
+        <div class="resumen-box">
+          <h4 class="mb-3">Resumen del Pedido</h4>
+          <p><strong>Número de pedido:</strong> <span th:text="${pedido.idPedido}">12345</span></p>
+          <p><strong>Fecha estimada de entrega:</strong> <span th:text="${#dates.format(pedido.fechaCreacion, 'dd/MM/yyyy HH:mm')}">01/01/2025</span></p>
+
+          <div class="mt-4">
+            <h5>Productos:</h5>
+            <div th:each="producto : ${pedido.productos}">
+              <div class="producto-item d-flex justify-content-between align-items-center">
+                <div>
+                  <span th:text="${producto.nombre}">Nombre del producto</span> × 
+                </div>
+                <div>$<span th:text="${producto.precio}">99.00</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 total d-flex justify-content-between">
+            <span>Total:</span>
+            <span>$<span th:text="${pedido.total}">999.00</span></span>
+          </div>
+        </div>
+
+        <div class="resumen-box">
+          <h4 class="mb-3">Información de Envío</h4>
+          <p class="info-envio" th:text="${cliente.direccionEnvio}">Dirección de envío</p>
+          <p class="info-envio"><strong>Método:</strong> <sppan> </sppan>UPS Ground ($60.00) / FeddEx Expresss ($75.00)</span></p>
+        </div>
+
+        <div class="text-center">
+          <a th:href="@{/home}" class="btn-principal">Volver al inicio</a>
+        </div>
+      </div>
+
+      <!-- Barra lateral derecha -->
+      <div class="col-md-2 barra-lateral"></div>
+    </div>
+  </div>
+
+  <!-- Barra inferior -->
+  <div class="barra-inferior">
+    &copy; 2025 Envejecimiento Exitoso. Todos los derechos reservados.
+  </div>
+
+</body>
+</html>
