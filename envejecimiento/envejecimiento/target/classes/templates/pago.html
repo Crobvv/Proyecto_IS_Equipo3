@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Envejecimiento Exitoso - Marketplace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+      @font-face {
+        font-family: 'MercadoLibre';
+        src: url('https://raw.githubusercontent.com/Demian9524/fuentesEnvejecimiento/main/MercadoLibre.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: 'MercadoLibre';
+        src: url('https://raw.githubusercontent.com/Demian9524/fuentesEnvejecimiento/main/MercadoLibre-Bold.otf') format('opentype');
+        font-weight: bold;
+        font-style: normal;
+      }
+
+      body, input, button, select, textarea {
+        font-family: 'MercadoLibre', sans-serif !important;
+      }
+
+      /* Navbar estilo Amazon */
+      .navbar-amazon {
+        background-color: #fcf5e8;
+        padding: 10px 20px;
+      }
+
+      .festividad-navbar {
+        background-color: #8a704f;   /* color llamativo */
+      }
+
+      .fest-nav-link {
+        color: white;
+        font-size: 14px;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-weight: bold;
+        margin: 0 0.5rem;
+      }
+    
+      .fest-nav-link:hover {
+        color: black;
+        text-decoration: underline;
+      }
+
+      a.btn-user {
+        background-color: #80181f !important;
+        color: #ffffff !important;
+        border: none !important;
+        font-weight: bold;
+      }
+
+      .navbar-amazon .navbar-brand,
+      .navbar-amazon a:not(.actualizar-ubicacion) {
+        color: #ffffff !important;
+        font-size: 14px;
+      }
+
+      /* 2 Asegurar que “Actualizar ubicación” quede en negro */
+      .navbar-amazon .actualizar-ubicacion {
+        color: #80181f !important;
+      }
+
+      .navbar-amazon input[type="search"] {
+        width: 300px;
+        border-radius: 4px;
+        border: none;
+        padding: 6px 10px;
+      }
+
+      .navbar-amazon .btn-outline-primary {
+        background-color: #80181f;
+        color: black;
+        border: none;
+        font-weight: bold;
+      }
+
+      .navbar-amazon .btn-outline-primary:hover {
+        background-color: #821920;
+      }
+
+      /* Botón de usuario / login */
+      .btn-login {
+        background-color: #80181f;
+        color: white;
+        border: none;
+        font-weight: bold;
+        border-radius: 0.25rem;
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+      }
+
+      .btn-login:hover {
+        background-color: #a3232c;
+        color: white;
+      }
+
+      .banner {
+        background-color: #d1b0b9;
+        color: black;
+        padding: 30px 20px;
+        text-align: center;
+      }
+
+      .card-title {
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .card-text {
+        font-size: 14px;
+        color: #565959;
+      }
+
+
+      footer {
+        background-color: #4a3537;
+        color: white;
+      }
+
+      footer a {
+        color: #94908e;
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+      
+      .sub-navbar {
+        background-color: #4a3537;
+      }
+
+      .sub-nav-link {
+        color: #ffffff;
+        font-size: 14px;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-weight: bold;
+      }
+
+      .sub-nav-link:hover {
+        color: #80181f !important;
+        text-decoration: underline;
+      }
+    
+      .ubicacion-box {
+        background-color: transparent;
+        color: #4a3537;
+        border-radius: 5px;
+        font-size: 13px;
+        line-height: 1.2;
+        margin-top: 10px;
+      }
+
+      .icono-ubicacion {
+        font-size: 20px;
+        color: #4a3537;
+      }
+
+      .textos .texto-secundario {
+        font-size: 15px;
+        color: black;
+        margin: 0;
+      }
+
+      .actualizar-ubicacion {
+        font-size: 13px;
+        color: #80181f !important;
+        font-weight: bold;
+        text-decoration: none;
+      }
+
+      .actualizar-ubicacion:hover {
+        text-decoration: underline;
+      }
+
+      button.ver-mas-btn:hover {
+        background-color: #80181f !important;
+        color: white !important;
+      }
+
+      details.user-menu {
+        display: inline-block; 
+      }
+
+      details.user-menu summary {
+        border-radius: .25rem;  
+        cursor: pointer;
+      }
+
+      details.user-menu[open] summary {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      details.user-menu ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        background-color: #80181f;       
+        border-radius: 0 0 .25rem .25rem; 
+      }
+
+      details.user-menu ul li a {
+        display: block;
+        padding: .5rem 1rem;
+        color: white;    
+        text-decoration: none;
+      }
+
+      details.user-menu ul li a:hover {
+        background-color: rgba(255,255,255,0.1);
+      }
+
+      .payment-form {
+        background-color: #fcf5e8;
+        padding: 1.5rem;            /* espacios internos */
+        border-radius: 0.5rem;      /* radios de esquina */
+        /* opcional: border: 1px solid #ddd; */
+      }
+
+
+      body {
+        background-color: #fcf5e8;
+      }
+
+      /* 2) Fondo de las cajas internas (dirección, métodos, etc.) */
+      .payment-form .border {
+        background-color: #e9e1d3;
+      }
+
+      /* 3) Fondo de la tarjeta de resumen */
+      .summary-card {
+        background-color: #ffffff;  /* o #f7f7f7, #e9ecef… */
+        padding: 1.5rem;            /* si quieres un poco de espacio */
+        border-radius: 0.5rem;      /* esquinas redondeadas */
+      }
+
+  </style>
+</head>
+<body>
+
+ <nav class="navbar navbar-expand-lg navbar-amazon">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+
+    <div class="d-flex align-items-center">
+      <!-- Logo-->
+      <div class="d-flex align-items-center">
+        <a class="navbar-brand me-3" th:href="@{/home}">
+          <img src="https://raw.githubusercontent.com/Demian9524/fuentesEnvejecimiento/main/logo.png"
+               alt="Logo" style="height: 120px;">
+        </a>
+      </div>
+
+      <!-- Ubicación -->
+      <div class="ubicacion-box d-flex align-items-start gap-2 ps-2">
+        <span class="icono-ubicacion">📍</span>
+        <div class="textos">
+          <div class="texto-secundario" th:if="${cliente != null}" th:text="${cliente.direccionEnvio != null} ? 'Entrega en ' + ${cliente.direccionEnvio} : 'Entrega en Tlalpan 14390'">Entrega en Tlalpan 14390</div>
+          <div class="texto-secundario" th:if="${cliente == null}">Entrega en Tlalpan 14390</div>
+          <a th:href="@{/cliente/actualizar-direccion}" class="actualizar-ubicacion">Actualizar ubicación</a>
+          </div>
+        </div>
+      </div>
+
+    <!-- Búsqueda -->
+    <form th:action="@{/home}" method="get" class="d-flex" role="search" style="max-width: 500px; width: 100%;">
+      <input
+        class="form-control me-2"
+        type="search"
+        name="search"
+        placeholder="Buscar productos..."
+        aria-label="Buscar"
+        th:value="${param.search}" />
+      <button class="btn btn-light" type="submit">🔍</button>
+    </form>
+
+    <!-- Botones -->
+    <div class="d-flex align-items-center ms-3">
+
+  <!-- Carrito -->
+    </div><div class="d-flex align-items-center ms-3">
+        <a th:href="@{/cliente/carrito}" class="btn btn-outline-primary me-2">🛒 Carrito</a>
+        <details th:if="${cliente != null}" class="user-menu me-2">
+          <summary class="btn-login">
+            👤 <span class="fw-bold ms-1" th:text="${cliente.nombre}">NombreUsuario</span>
+          </summary>
+          <ul>
+            <li><a th:href="@{/cliente/perfil}">Mi perfil</a></li>
+            <li><a th:href="@{/cliente/logout}">Log-out</a></li>
+          </ul>
+        </details>
+        <div th:if="${cliente == null}">
+          <a href="/cliente/login" class="btn-login me-2">👤 Iniciar sesión</a>
+        </div>
+    </div>
+
+  </div>
+</nav>
+  
+<!-- Submenú -->
+<nav class="sub-navbar text-center py-2">
+  <div class="container d-flex flex-wrap justify-content-center gap-4">
+    <a th:href="@{/home(category='Niños')}"          class="sub-nav-link">Niños</a>
+    <a th:href="@{/home(category='Adultos')}"        class="sub-nav-link">Adultos</a>
+    <a th:href="@{/home(category='Salud')}"          class="sub-nav-link">Salud</a>
+    <a th:href="@{/home(category='Alimentos')}"      class="sub-nav-link">Alimentos</a>
+    <a th:href="@{/home(category='Mascotas')}"       class="sub-nav-link">Mascotas</a>
+    <a th:href="@{/home(category='Decoración')}"     class="sub-nav-link">Decoración</a>
+    <a th:href="@{/home(category='Libros')}"         class="sub-nav-link">Libros</a>
+    <a th:href="@{/home(category='Joyas y Bisutería')}" class="sub-nav-link">Joyas y Bisutería</a>
+    <a th:href="@{/home(category='Moda y Accesorios')}" class="sub-nav-link">Moda y Accesorios</a>
+    <a th:href="@{/home(category='Juguetes y Juegos')}" class="sub-nav-link">Juguetes y Juegos</a>
+  </div>
+</nav>
+
+<!-- SUB-NAVBAR FESTIVIDADES -->
+  <nav class="festividad-navbar text-center py-2">
+    <div class="container d-flex flex-wrap justify-content-center gap-4">
+      <a th:href="@{/home(festividad='Año nuevo')}"        class="sub-nav-link">Año nuevo</a>
+      <a th:href="@{/home(festividad='Día de la independencia')}"          class="sub-nav-link">Día de la independencia</a>
+      <a th:href="@{/home(festividad='Día de la Madre')}"    class="sub-nav-link">Día de la Madre</a>
+      <a th:href="@{/home(festividad='Día de los Muertos')}" class="sub-nav-link">Día de los Muertos</a>
+      <a th:href="@{/home(festividad='Día del Padre')}"      class="sub-nav-link">Día del Padre</a>
+      <a th:href="@{/home(festividad='Halloween')}"          class="sub-nav-link">Halloween</a>
+      <a th:href="@{/home(festividad='Navidad')}"            class="sub-nav-link">Navidad</a>
+      <a th:href="@{/home(festividad='San Valentín')}"       class="sub-nav-link">San Valentín</a>
+    </div>
+  </nav>
+
+  <div class="container my-5">
+    <a th:href="@{/cliente/carrito}" class="btn btn-back mb-4">← Volver al carrito</a>
+    <h2 class="mb-4">Proceder al Pago</h2>
+
+    <div class="row">
+      <!-- FORMULARIO DE PAGO -->
+      <div class="col-lg-8">
+        <form th:action="@{/pedido/pago}" th:object="${pago}" method="post" class="payment-form">
+          <!-- Dirección de Envío -->
+          <div class="mb-4">
+            <label class="form-label fw-bold">Dirección de envío</label>
+            <div class="border rounded p-3">
+              <div th:text="${cliente.direccionEnvio}">C. Pilares 606, Col. del Valle Centro, BJ, 03100</div>
+              <a th:href="@{/cliente/actualizar-direccion}" class="actualizar-ubicacion">Editar</a>
+            </div>
+          </div>
+          <!-- Método de Envío -->
+      <div class="mb-4">
+        <label class="form-label fw-bold">Método de envío</label>
+        <div class="border rounded p-3">
+          <div class="form-check">
+            <input class="form-check-input"
+              type="radio"
+              name="metodo"
+              th:value="'UPS Ground'"
+              th:checked="${pago.metodo} == 'UPS Ground'"
+              data-cost="60.35"
+              id="envio1">
+            <label class="form-check-label" for="envio1">
+              UPS Ground — $60.00 MXN
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input"
+                type="radio"
+                name="metodo"
+                th:value="'FedEx Express'"
+                th:checked="${pago.metodo} == 'FedEx Express'"
+                data-cost="95.00"
+                id="envio2">
+            <label class="form-check-label" for="envio2">
+              FedEx Express — $75.00 MXN
+            </label>
+          </div>
+        </div>
+      </div>
+
+          <!-- Hidden inputs to capture costs -->
+            <input type="hidden" name="envioCost" id="envioCostInput" th:value="${envioCost}" />
+            <input type="hidden" name="ivaCost" id="ivaCostInput" th:value="${carrito.total} * 0.16" />
+            <input type="hidden" name="totalCost" id="totalCostInput" />
+
+          <!-- Método de Pago -->
+          <div class="mb-4">
+            <label class="form-label fw-bold">Método de pago</label>
+            <div class="border rounded p-3 mb-3">
+              <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" alt="PayPal" style="height:24px;">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa" style="height:24px;">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/640px-Mastercard-logo.svg.png" alt="Mastercard" style="height:24px;">
+            </div>
+            <div class="row g-2">
+              <div class="col-md-6">
+                <input type="text" th:field="*{numeroTarjeta}" class="form-control" placeholder="Número de tarjeta">
+              </div>
+              <div class="col-md-4">
+                <input type="text" th:field="*{nombreTitular}" class="form-control" placeholder="Nombre del titular">
+              </div>
+              <div class="col-md-2">
+              <input type="text" th:field="*{mesExp}" class="form-control" placeholder="MM">
+            </div>
+            <div class="col-md-2">
+              <input type="text" th:field="*{anoExp}" class="form-control" placeholder="AA">
+            </div>
+              <div class="col-md-2">
+                <input type="text" th:field="*{cvv}" class="form-control" placeholder="CVV">
+              </div>
+            </div>
+          </div>
+          <!-- Dirección de Facturación -->
+          <div class="mb-4">
+            <label class="form-label fw-bold">Dirección de facturación</label>
+            <div class="border rounded p-3">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" th:field="*{facturaMisma}" value="true" id="factura1">
+                <label class="form-check-label" for="factura1">Igual que la dirección de envío</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" th:field="*{facturaMisma}" value="false" id="factura2">
+                <label class="form-check-label" for="factura2">Usar una dirección diferente</label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- RESUMEN DE PEDIDO COMO TABLA -->
+      <div class="col-lg-4">
+        <div class="summary-card">
+          <h5 class="fw-bold mb-3 fs-2">Resumen</h5>
+
+          <table class="table table-borderless mb-3">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th class="text-end">Precio</th>
+                <th class="text-end">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Aquí iteramos cada item -->
+              <tr th:each="item : ${carrito.productos}">
+                <!-- columna Producto con imagen + nombre -->
+                <td>
+                  <div class="d-flex align-items-center gap-2">
+                    <img
+                      th:src="@{/img/{ruta}(ruta=${item.rutaImagen})}"
+                      style="height:40px; width:40px; object-fit:cover;"
+                      class="rounded"
+                      alt="foto producto" />
+                    <span th:text="${item.nombre}">Nombre Producto</span>
+                  </div>
+                </td>
+                <!-- Precio unitario -->
+                <td class="text-end" th:text="${item.precio} + ' MXN'">
+                  $0 MXN
+                </td>
+                <!-- Subtotal (si en el futuro agregas cantidad, haz item.precio * item.cantidad) -->
+                <td class="text-end" th:text="${item.precio} + ' MXN'">
+                  $0 MXN
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+                      <tr>
+                        <td colspan="2">Subtotal</td>
+                        <td id="subtotal-cell"
+                          th:text="${carrito.total} + ' MXN'"
+                          th:data-value="${carrito.total}">0 MXN</td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">IVA (16%)</td>
+                        <td id="iva-cell" class="text-end" data-value="0.00">0.00 MXN</td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">Envío</td>
+                        <td class="text-end" id="envio-cell" data-value="0.00">0.00 MXN</td>
+                      </tr>
+                      <tr class="fw-bold">
+                        <td colspan="2">Total</td>
+                        <td class="text-end" id="total-cell">0.00 MXN</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                  <form th:action="@{/pago/formulario}" th:object="${pago}" method="post">
+                    <button type="submit" class="btn btn-primary w-100">Completar Orden</button>
+                  </form>
+                </div>
+              </div>
+
+            </div>
+    
+  <footer class="text-center py-4">
+    <p>Marketplace @Envejecimiento Exitoso</p>
+  </footer>
+
+  <!-- Script para cálculo dinámico -->
+  <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const radios       = document.querySelectorAll('input[type="radio"][data-cost]');
+        const subtotalCell = document.getElementById('subtotal-cell');
+        const envioCell    = document.getElementById('envio-cell');
+        const ivaCell      = document.getElementById('iva-cell');
+        const totalCell    = document.getElementById('total-cell');
+
+        const envioInput   = document.getElementById('envioCostInput');
+        const ivaInput     = document.getElementById('ivaCostInput');
+        const totalInput   = document.getElementById('totalCostInput');
+
+        function actualizar(envioCost) {
+          const subtotal = parseFloat(subtotalCell.dataset.value) || 0;
+          const ivaCost  = +(subtotal * 0.16).toFixed(2);
+
+          // Actualizar celdas
+          envioCell.textContent = envioCost.toFixed(2) + ' MXN';
+          envioCell.dataset.value = envioCost.toFixed(2);
+
+          ivaCell.textContent = ivaCost.toFixed(2) + ' MXN';
+          ivaCell.dataset.value = ivaCost.toFixed(2);
+
+          const total = +(subtotal + envioCost).toFixed(2);
+          totalCell.textContent = total.toFixed(2) + ' MXN';
+          totalCell.dataset.value = total.toFixed(2);
+
+          // Actualizar inputs ocultos
+          envioInput.value = envioCost.toFixed(2);
+          ivaInput.value   = ivaCost.toFixed(2);
+          totalInput.value = total.toFixed(2);
+        }
+
+        radios.forEach(radio => {
+          radio.addEventListener('change', () => {
+            const costo = parseFloat(radio.getAttribute('data-cost')) || 0;
+            actualizar(costo);
+          });
+          if (radio.checked) {
+            actualizar(parseFloat(radio.getAttribute('data-cost')) || 0);
+          }
+        });
+      });
+    </script>
+  </body>
+  </html>
