@@ -21,6 +21,7 @@ import com.proyecto.service.PedidoService;
 
 import jakarta.servlet.http.HttpSession;
 
+
 @Controller
 @RequestMapping("/pedido")
 public class PedidoController {
@@ -82,7 +83,7 @@ public class PedidoController {
     // Te lleva a la página de confirmar pedido
     @GetMapping("/confirmar")
     public String redirigirAPago() {
-        return "redirect:/pago/formulario"; // Asegúrate que esta ruta exista en PagoController
+        return "redirect:/pago/formulario";
     }
 
     // Listar todos los pedidos confirmados (API JSON)

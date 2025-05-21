@@ -280,7 +280,7 @@
             👤 <span class="fw-bold ms-1" th:text="${cliente.nombre}">NombreUsuario</span>
           </summary>
           <ul>
-            <li><a th:href="@{/cliente/perfil}">Mi perfil</a></li>
+            <li><a th:href="@{/home}">Mi perfil</a></li>
             <li><a th:href="@{/cliente/logout}">Log-out</a></li>
           </ul>
         </details>
@@ -352,7 +352,7 @@
     </div>
 
     <div class="d-flex justify-content-between align-items-center mt-4">
-      <a href="/pedido/carrito" class="btn btn-primary">Actualizar carrito</a>
+      <a href="/pedido/carrito/vista" class="btn btn-primary">Actualizar carrito</a>
       <form method="get" th:action="@{/pedido/confirmar}" th:object="${confirmacionRequest}">
         <button type="submit" class="btn btn-primary">Confirmar pedido</button>
       </form>

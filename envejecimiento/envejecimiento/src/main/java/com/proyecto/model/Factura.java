@@ -8,12 +8,20 @@ public class Factura {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idFactura;
+
     private double montoTotal;
     private Date fechaEmision;
     private String actividad;
 
     @ManyToOne
     private Cliente cliente;
+
+    public Factura(int idFactura, double montoTotal, Date fechaEmision, String actividad) {
+        this.idFactura = idFactura;
+        this.montoTotal = montoTotal;
+        this.fechaEmision = fechaEmision;
+        this.actividad = actividad;
+    }
 
     public void generarFactura() {}
     public void enviarFactura() {}

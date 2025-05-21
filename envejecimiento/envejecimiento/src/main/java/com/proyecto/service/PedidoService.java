@@ -78,6 +78,7 @@ public class PedidoService {
 
     public Pedido confirmarPedido(Pago pago, String detalles) {
         Pedido activo = getPedidoActivo();
+        activo.setTotal(pago.getMonto());
         if(activo.getCarritoCompras().getProductos().isEmpty()) {
             throw new RuntimeException("El carrito está vacío. No se puede confirmar el pedido.");
         }

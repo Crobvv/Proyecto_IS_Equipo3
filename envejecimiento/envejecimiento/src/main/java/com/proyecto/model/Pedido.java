@@ -24,7 +24,7 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPedido;
 
-    private String estado;      // "activo", "pendiente", etc.
+    private String estado;      // "activo", "confirmado"
     private Date fechaCreacion;
     private Date fechaEntrega;
     private String detalles;
@@ -76,7 +76,7 @@ public class Pedido {
     // Método para trabajar con carrito y luego confirmar
     public void confirmarPedido() {
         guardarCarritoEnPedido();
-        this.estado = "PENDIENTE";
+        this.estado = "CONFIRMADO";
         this.fechaCreacion = new Date();
         carritoCompras.vaciarCarrito();
     }

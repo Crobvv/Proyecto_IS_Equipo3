@@ -15,14 +15,14 @@ public class PagoService {
     private PagoRepository pagoRepository;
 
     public Pago registrarPago(Pago pago) {
-        pago.setEstado("pendiente");
+        pago.setEstado("PENDIENTE");
         return pagoRepository.save(pago);
     }
 
     public Pago confirmarPago(int idPago) {
         Pago pago = pagoRepository.findById(idPago).orElse(null);
         if (pago != null) {
-            pago.setEstado("confirmado");
+            pago.setEstado("COMPLETADO");
             pagoRepository.save(pago);
         }
         return pago;

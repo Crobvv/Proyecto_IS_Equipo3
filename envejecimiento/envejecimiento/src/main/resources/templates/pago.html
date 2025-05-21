@@ -118,22 +118,6 @@
         color: #565959;
       }
 
-      .ver-mas-btn {
-        display: block;
-        margin: 30px auto;
-        padding: 10px 30px;
-        background-color: #d1b0b9;
-        color: black;
-        font-weight: bold;
-        border: none;
-        border-radius: 6px;
-        font-size: 16px;
-        cursor: pointer;
-      }
-
-      .ver-mas-btn:hover {
-        background-color: #ff9900;
-      }
 
       footer {
         background-color: #4a3537;
@@ -234,6 +218,31 @@
       details.user-menu ul li a:hover {
         background-color: rgba(255,255,255,0.1);
       }
+
+      .payment-form {
+        background-color: #fcf5e8;
+        padding: 1.5rem;            /* espacios internos */
+        border-radius: 0.5rem;      /* radios de esquina */
+        /* opcional: border: 1px solid #ddd; */
+      }
+
+
+      body {
+        background-color: #fcf5e8;
+      }
+
+      /* 2) Fondo de las cajas internas (dirección, métodos, etc.) */
+      .payment-form .border {
+        background-color: #e9e1d3;
+      }
+
+      /* 3) Fondo de la tarjeta de resumen */
+      .summary-card {
+        background-color: #ffffff;  /* o #f7f7f7, #e9ecef… */
+        padding: 1.5rem;            /* si quieres un poco de espacio */
+        border-radius: 0.5rem;      /* esquinas redondeadas */
+      }
+
   </style>
 </head>
 <body>
@@ -333,7 +342,7 @@
     <div class="row">
       <!-- FORMULARIO DE PAGO -->
       <div class="col-lg-8">
-        <form th:action="@{/pedido/pago}" th:object="${pago}" method="post">
+        <form th:action="@{/pedido/pago}" th:object="${pago}" method="post" class="payment-form">
           <!-- Dirección de Envío -->
           <div class="mb-4">
             <label class="form-label fw-bold">Dirección de envío</label>
@@ -343,26 +352,48 @@
             </div>
           </div>
           <!-- Método de Envío -->
-          <div class="mb-4">
-            <label class="form-label fw-bold">Método de envío</label>
-            <div class="border rounded p-3">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" th:field="*{metodo}" value="UPS Ground" id="envio1">
-                <label class="form-check-label" for="envio1">UPS Ground — $60.35 MXN</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" th:field="*{metodo}" value="FedEx Express" id="envio2">
-                <label class="form-check-label" for="envio2">FedEx Express — $95.00 MXN</label>
-              </div>
-            </div>
+      <div class="mb-4">
+        <label class="form-label fw-bold">Método de envío</label>
+        <div class="border rounded p-3">
+          <div class="form-check">
+            <input class="form-check-input"
+              type="radio"
+              name="metodo"
+              th:value="'UPS Ground'"
+              th:checked="${pago.metodo} == 'UPS Ground'"
+              data-cost="60.35"
+              id="envio1">
+            <label class="form-check-label" for="envio1">
+              UPS Ground — $60.00 MXN
+            </label>
           </div>
+          <div class="form-check">
+            <input class="form-check-input"
+                type="radio"
+                name="metodo"
+                th:value="'FedEx Express'"
+                th:checked="${pago.metodo} == 'FedEx Express'"
+                data-cost="95.00"
+                id="envio2">
+            <label class="form-check-label" for="envio2">
+              FedEx Express — $75.00 MXN
+            </label>
+          </div>
+        </div>
+      </div>
+
+          <!-- Hidden inputs to capture costs -->
+            <input type="hidden" name="envioCost" id="envioCostInput" th:value="${envioCost}" />
+            <input type="hidden" name="ivaCost" id="ivaCostInput" th:value="${carrito.total} * 0.16" />
+            <input type="hidden" name="totalCost" id="totalCostInput" />
+
           <!-- Método de Pago -->
           <div class="mb-4">
             <label class="form-label fw-bold">Método de pago</label>
             <div class="border rounded p-3 mb-3">
               <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" alt="PayPal" style="height:24px;">
               <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa" style="height:24px;">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Mastercard_logo.svg" alt="Mastercard" style="height:24px;">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/640px-Mastercard-logo.svg.png" alt="Mastercard" style="height:24px;">
             </div>
             <div class="row g-2">
               <div class="col-md-6">
@@ -396,51 +427,123 @@
               </div>
             </div>
           </div>
-          <!-- Recordarme -->
-          <div class="form-check mb-4">
-            <input class="form-check-input" type="checkbox" th:field="*{guardarInfo}" id="guardarInfo">
-            <label class="form-check-label" for="guardarInfo">
-              Guardar mi información para un pago más rápido
-            </label>
-          </div>
-          <!-- Botón Completar -->
-          <button type="submit" class="btn btn-primary w-100">Completar Orden</button>
         </form>
       </div>
 
-      <!-- RESUMEN DE PEDIDO -->
+      <!-- RESUMEN DE PEDIDO COMO TABLA -->
       <div class="col-lg-4">
         <div class="summary-card">
-          <h5 class="fw-bold">Resumen ( <span th:text="${carrito.productos.size()}">0</span> productos )</h5>
-          <hr>
-          <div class="d-flex justify-content-between">
-            <span>Subtotal</span>
-            <span th:text="${carrito.total} + ' MXN'">$0</span>
-          </div>
-          <div class="d-flex justify-content-between">
-            <span>Envío</span>
-            <span th:text="${pagoRequest.metodoEnvio != null ? envioCost : '0.00'} + ' MXN'">$0</span>
-          </div>
-          <div class="d-flex justify-content-between">
-            <span>IVA</span>
-            <span th:text="${carrito.iva} + ' MXN'">$0</span>
-          </div>
-          <div class="input-group my-3">
-            <input type="text" class="form-control" placeholder="Cupón o código" th:field="*{codigoDescuento}">
-            <button class="btn btn-outline-secondary" th:onclick="|applyCoupon()|">Aplicar</button>
-          </div>
-          <hr>
-          <div class="d-flex justify-content-between fs-5 fw-bold">
-            <span>Total</span>
-            <span th:text="${carrito.total} + ' MXN'">$0</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+          <h5 class="fw-bold mb-3 fs-2">Resumen</h5>
 
+          <table class="table table-borderless mb-3">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th class="text-end">Precio</th>
+                <th class="text-end">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Aquí iteramos cada item -->
+              <tr th:each="item : ${carrito.productos}">
+                <!-- columna Producto con imagen + nombre -->
+                <td>
+                  <div class="d-flex align-items-center gap-2">
+                    <img
+                      th:src="@{/img/{ruta}(ruta=${item.rutaImagen})}"
+                      style="height:40px; width:40px; object-fit:cover;"
+                      class="rounded"
+                      alt="foto producto" />
+                    <span th:text="${item.nombre}">Nombre Producto</span>
+                  </div>
+                </td>
+                <!-- Precio unitario -->
+                <td class="text-end" th:text="${item.precio} + ' MXN'">
+                  $0 MXN
+                </td>
+                <!-- Subtotal (si en el futuro agregas cantidad, haz item.precio * item.cantidad) -->
+                <td class="text-end" th:text="${item.precio} + ' MXN'">
+                  $0 MXN
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+                      <tr>
+                        <td colspan="2">Subtotal</td>
+                        <td id="subtotal-cell"
+                          th:text="${carrito.total} + ' MXN'"
+                          th:data-value="${carrito.total}">0 MXN</td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">IVA (16%)</td>
+                        <td id="iva-cell" class="text-end" data-value="0.00">0.00 MXN</td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">Envío</td>
+                        <td class="text-end" id="envio-cell" data-value="0.00">0.00 MXN</td>
+                      </tr>
+                      <tr class="fw-bold">
+                        <td colspan="2">Total</td>
+                        <td class="text-end" id="total-cell">0.00 MXN</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                  <form th:action="@{/pago/formulario}" th:object="${pago}" method="post">
+                    <button type="submit" class="btn btn-primary w-100">Completar Orden</button>
+                  </form>
+                </div>
+              </div>
+
+            </div>
+    
   <footer class="text-center py-4">
     <p>Marketplace @Envejecimiento Exitoso</p>
   </footer>
-</body>
-</html>
+
+  <!-- Script para cálculo dinámico -->
+  <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const radios       = document.querySelectorAll('input[type="radio"][data-cost]');
+        const subtotalCell = document.getElementById('subtotal-cell');
+        const envioCell    = document.getElementById('envio-cell');
+        const ivaCell      = document.getElementById('iva-cell');
+        const totalCell    = document.getElementById('total-cell');
+
+        const envioInput   = document.getElementById('envioCostInput');
+        const ivaInput     = document.getElementById('ivaCostInput');
+        const totalInput   = document.getElementById('totalCostInput');
+
+        function actualizar(envioCost) {
+          const subtotal = parseFloat(subtotalCell.dataset.value) || 0;
+          const ivaCost  = +(subtotal * 0.16).toFixed(2);
+
+          // Actualizar celdas
+          envioCell.textContent = envioCost.toFixed(2) + ' MXN';
+          envioCell.dataset.value = envioCost.toFixed(2);
+
+          ivaCell.textContent = ivaCost.toFixed(2) + ' MXN';
+          ivaCell.dataset.value = ivaCost.toFixed(2);
+
+          const total = +(subtotal + envioCost).toFixed(2);
+          totalCell.textContent = total.toFixed(2) + ' MXN';
+          totalCell.dataset.value = total.toFixed(2);
+
+          // Actualizar inputs ocultos
+          envioInput.value = envioCost.toFixed(2);
+          ivaInput.value   = ivaCost.toFixed(2);
+          totalInput.value = total.toFixed(2);
+        }
+
+        radios.forEach(radio => {
+          radio.addEventListener('change', () => {
+            const costo = parseFloat(radio.getAttribute('data-cost')) || 0;
+            actualizar(costo);
+          });
+          if (radio.checked) {
+            actualizar(parseFloat(radio.getAttribute('data-cost')) || 0);
+          }
+        });
+      });
+    </script>
+  </body>
+  </html>

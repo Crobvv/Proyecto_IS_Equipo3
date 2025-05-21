@@ -13,6 +13,7 @@ public class Pago {
     private int idPago;
 
     private double monto;
+    
     private String metodo;
     private String estado;
 
@@ -28,30 +29,10 @@ public class Pago {
     private String cvv;
     @Transient
     private boolean facturaMisma;
-    @Transient
-    private boolean guardarInfo;
-    @Transient
-    private String codigoDescuento;
 
     public Pago() {
         // Constructor vacío requerido por JPA
     }
-
-    public Pago(double monto, String metodo, String estado, String numeroTarjeta, 
-            String nombreTitular, String mesExp, String anoExp, String cvv,
-            boolean facturaMisma, boolean guardarInfo, String codigoDescuento) {
-        this.monto = monto;
-        this.metodo = metodo;
-        this.estado = estado;
-        this.nombreTitular = nombreTitular;
-        this.mesExp = mesExp;
-        this.anoExp = anoExp;
-        this.cvv = cvv;
-        this.facturaMisma = facturaMisma;
-        this.guardarInfo = guardarInfo;
-        this.codigoDescuento = codigoDescuento;
-    }
-    
 
     public void procesarPago() {}
     public void confirmarPago() {}
@@ -67,8 +48,6 @@ public class Pago {
     public String getAnoExp() { return anoExp; }
     public String getCvv() { return cvv; }
     public boolean isFacturaMisma() { return facturaMisma; }
-    public boolean isGuardarInfo() { return guardarInfo; }
-    public String getCodigoDescuento() { return codigoDescuento; }
 
     public void setIdPago(int idPago) { this.idPago = idPago; }
     public void setMonto(double monto) { this.monto = monto; }
@@ -80,8 +59,4 @@ public class Pago {
     public void setAnoExp(String anoExp) { this.anoExp = anoExp; }
     public void setCvv(String cvv) { this.cvv = cvv; }
     public void setFacturaMisma(boolean facturaMisma) { this.facturaMisma = facturaMisma; }
-    public void setGuardarInfo(boolean guardarInfo) { this.guardarInfo = guardarInfo; }
-    public void setCodigoDescuento(String codigoDescuento) { this.codigoDescuento = codigoDescuento; }
-
-    
 }
